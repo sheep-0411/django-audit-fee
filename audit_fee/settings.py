@@ -46,6 +46,7 @@ NUMBER_GROUPING = 3 #3桁区切りのため追加
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # 本番環境でも動くように追加
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -151,5 +152,4 @@ if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
 
-import django_heroku
-django_heroku.settings(locals())
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
