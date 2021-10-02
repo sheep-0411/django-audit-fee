@@ -1,0 +1,103 @@
+<!-- {% load static %} -->
+{% load django_bootstrap5 %}
+{% load humanize %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>監査報酬データベース(β)</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!--  plotly JS Files  -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <link rel="stylesheet" href="{% static 'audit_fee/css/style.css' %}"> -->
+</head>
+
+
+<div class="accordion container">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          絞り込む
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <form action="" method="get" class="container">
+                <div>●キーワードで絞る</div>
+                <input name="query" value="{{ request.GET.query }}" type="text">
+                <div class="test">
+                <div>●監査法人で絞る</div>
+                {% for dic in audit_firm %}
+                <label><input type="checkbox" name="office" value="{{dic.auditor}}">{{dic.auditor}}</label>
+                {% endfor %}
+                <div class="pointer"><button type="submit">絞り込み</button></div>
+            </div>
+            </form>
+        
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<body style="padding-top: 5rem">
+<nav class="navbar navbar-expand flex-md-row navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a href="/" class="navbar-brand">監査報酬データベース(β)</a>
+        <a href="/admin" class="navbar-brand">管理画面</a>
+    </div>
+</nav>
+<main>
+    <div class="container">
+<div style="padding-top: 1rem"><button type="submit">ダウンロード(実装予定)</button></div>
+
+
+
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 20%">社名</th>
+            <th scope="col" style="width: 10%">期末日</th>
+            <th scope="col" style="width: 10%">監査報酬</th>
+            <th scope="col" style="width: 20%">監査法人</th>
+            <th scope="col" style="width: 20%">KAM1</th>
+            <th scope="col" style="width: 20%">KAM2</th>
+            <!-- <th scope="col" style="width: 8%">KAM3</th>
+            <th scope="col" style="width: 8%">KAM4</th>
+            <th scope="col" style="width: 8%">KAM5</th> -->
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for audit_fee_id in audit_fee %}
+            <td>{{audit_fee_id.name}}</td>
+            <td>{{audit_fee_id.end_date}}</td>
+            <td><div class="text-end">{{audit_fee_id.audit_fee|intcomma}}円</div></td>
+            <td>{{audit_fee_id.auditor}}</td>
+            <td><a href="{% url 'audit_fee_detail' audit_fee_id.id %}">{{audit_fee_id.kam_title_1}}</a></td>
+            <td><a href="{% url 'audit_fee_detail' audit_fee_id.id %}">{{audit_fee_id.kam_title_2}}</a></td>
+            <!-- <td><a href="{% url 'audit_fee_detail' audit_fee_id.id %}">{{audit_fee_id.kam_title_3}}</a></td>
+            <td><a href="{% url 'audit_fee_detail' audit_fee_id.id %}">{{audit_fee_id.kam_title_4}}</a></td>
+            <td><a href="{% url 'audit_fee_detail' audit_fee_id.id %}">{{audit_fee_id.kam_title_5}}</a></td>  -->
+        </tr>  
+        {% endfor %}
+    </tbody>
+
+</table>
+<!-- <a href="/admin">管理画面</a> -->
+
+
+
+{% autoescape off %}
+<!-- {{ graph }}  -->
+<!-- HTMLコードの文字列が格納されたコンテキスト -->
+{% endautoescape %}
+</div>
+
+
+
+</main>
+</body>
+</html>

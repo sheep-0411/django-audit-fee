@@ -37,7 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_bootstrap5', #bootstrap5により追加
+    'import_export', #djnago-mport-exportにより追加
+    'django.contrib.humanize', #3桁区切りのため追加
 ]
+
+NUMBER_GROUPING = 3 #3桁区切りのため追加
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

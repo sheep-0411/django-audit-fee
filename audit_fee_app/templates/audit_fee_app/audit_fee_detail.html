@@ -1,0 +1,39 @@
+<!-- {% load static %} -->
+{% load django_bootstrap5 %}
+{% load humanize %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>監査報酬データベース(β)</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!--  plotly JS Files  -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <link rel="stylesheet" href="{% static 'audit_fee/css/style.css' %}"> -->
+</head>
+
+<body>
+<div calss='container'>
+<a href="/">一覧に戻る</a>
+<a href="https://disclosure.edinet-fsa.go.jp/E01EW/BLMainController.jsp?uji.verb=W1E63010CXW1E6A010DSPSch&uji.bean=ee.bean.parent.EECommonSearchBean&TID=W1E63011&PID=W1E63010&SESSIONKEY=1627132255934&lgKbn=2&pkbn=0&skbn=0&dskb=&dflg=0&iflg=0&preId=1&row=100&idx=0&syoruiKanriNo=&mul={{audit_fee.edinet_code}}&fls=on&cal=1&era=R&yer=&mon=&pfs=4">EDINETで検索</a>
+<h3>詳細ページ</h3>
+<p>会社名：{{audit_fee.name}}</p>
+<p>期末日：{{audit_fee.end_date}}</p>
+<p>監査報酬：{{audit_fee.audit_fee|intcomma}}円</p>
+<p>監査法人：{{audit_fee.auditor}}</p>
+<p>KAM1：{{audit_fee.kam_title_1}}</p>
+<p>KAM1内容及び決定理由：{{audit_fee.kam_description_1 | safe}}</p>
+<p>KAM1監査上の対応：{{audit_fee.kam_audit_description_1 | safe}}</p>
+{% if audit_fee.kam_title_2 != "-" %}
+<p>KAM2：{{audit_fee.kam_title_2}}</p>
+<p>KAM2内容及び決定理由：{{audit_fee.kam_description_2 | safe}}</p>
+<p>KAM2監査上の対応：{{audit_fee.kam_audit_description_2 | safe}}</p>
+{% endif %} 
+{% if audit_fee.kam_title_3 != "-" %}
+<p>KAM3：{{audit_fee.kam_title_3}}</p>
+<p>KAM3内容及び決定理由：{{audit_fee.kam_description_3 | safe}}</p>
+<p>KAM3監査上の対応：{{audit_fee.kam_audit_description_3 | safe}}</p>
+{% endif %} 
+</div>
+</body>
+</html>

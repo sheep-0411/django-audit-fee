@@ -17,10 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django import urls
-# from audit_fee_app.views import top
+from audit_fee_app.views import top
 
 urlpatterns = [
-    # path('',top, name='top'),
-    # path('audit_fee_app/',include('audit_fee_app.urls')),
+    path('',top, name='top'),
+    path('audit_fee_app/',include('audit_fee_app.urls')),
     path('admin/', admin.site.urls),
 ]

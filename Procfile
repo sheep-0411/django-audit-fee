@@ -1,1 +1,1 @@
-web: gunicorn audit_fee.wsgi
+web: gunicorn audit_fee.wsgi --log-file -
