@@ -1,4 +1,5 @@
 myvenv
 *.pyc
 db.sqlite3
-local_settings.py
+audit_fee/local_settings.py
+staticfiles/

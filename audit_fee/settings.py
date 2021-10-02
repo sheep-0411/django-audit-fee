@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic', #追加
     'audit_fee_app.apps.AuditFeeAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
