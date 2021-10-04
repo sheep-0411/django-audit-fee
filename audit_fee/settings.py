@@ -154,3 +154,4 @@ if not DEBUG:
     django_heroku.settings(locals())
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# heroku初期設定通りだとエラーになる。
